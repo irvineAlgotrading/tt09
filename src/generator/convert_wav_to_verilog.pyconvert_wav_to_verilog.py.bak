@@ -1,0 +1,72 @@
+import wave
+import numpy as np
+import sys
+import os
+from scipy import signal
+
+# Configuration
+LOOKUP_TABLE_NAME = "audio_lookup_table"
+VERILOG_FILENAME = "audio_lookup_table.v"
+TARGET_SAMPLE_RATE = 48000
+ADDRESS_WIDTH = 18
+DATA_WIDTH = 16
+
+# Load WAV file
+wav_file = "audiohifi.wav"  # Replace with your audio file
+
+with wave.open(wav_file, 'r') as wav:
+    # Extract parameters
+    n_channels, sampwidth, framerate, n_frames, _, _ = wav.getparams()
+
+    if n_channels != 1 or sampwidth != 2:
+        print("Error: WAV file must be 16-bit mono.")
+        sys.exit(1)
+
+    # Read frames
+    frames = wav.readframes(n_frames)
+    pcm_data = np.frombuffer(frames, dtype=np.int16)
+
+# Resample to 48kHz if needed
+if framerate != TARGET_SAMPLE_RATE:
+    print(f"Resampling from {framerate}Hz to {TARGET_SAMPLE_RATE}Hz")
+    samples = len(pcm_data)
+    new_samples = int(samples * TARGET_SAMPLE_RATE / framerate)
+    pcm_data = signal.resample(pcm_data, new_samples)
+    pcm_data = np.int16(pcm_data)  # Convert back to 16-bit
+
+# Truncate to power of 2 and ensure it fits in address space
+max_samples = min(2**ADDRESS_WIDTH, len(pcm_data))
+pcm_data = pcm_data[:max_samples]
+
+# Generate Verilog ROM
+with open(VERILOG_FILENAME, 'w') as f:
+    f.write("`default_nettype none\n\n")
+    f.write(f"module {LOOKUP_TABLE_NAME} (\n")
+    f.write("    input wire [17:0] address,\n")
+    f.write("    output reg [15:0] data_out\n")
+    f.write(");\n\n")
+
+    f.write("    reg [15:0] rom [0:%d];\n\n" % (max_samples-1))
+
+    f.write("    initial begin\n")
+    # Write data in chunks for readability
+    CHUNK_SIZE = 1000
+    for i in range(0, len(pcm_data), CHUNK_SIZE):
+        chunk = pcm_data[i:i + CHUNK_SIZE]
+        f.write(f"\n        // Samples {i} to {i + len(chunk) - 1}\n")
+        for j, sample in enumerate(chunk):
+            f.write(f"        rom[{i + j}] = 16'd{sample};\n")
+
+    f.write("    end\n\n")
+
+    f.write("    always @(*) begin\n")
+    f.write(f"        if (address < {max_samples}) begin\n")
+    f.write("            data_out = rom[address];\n")
+    f.write("        end else begin\n")
+    f.write("            data_out = 16'd0;\n")
+    f.write("        end\n")
+    f.write("    end\n\n")
+
+    f.write("endmodule\n")
+
+print(f"Generated {VERILOG_FILENAME} with {len(pcm_data)} samples at {TARGET_SAMPLE_RATE}Hz")
