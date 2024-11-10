@@ -1,0 +1,31 @@
+name: docs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - run: pip install tinytapeout
+    - name: Build docs
+      run: tt datasheet
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: datasheet.pdf
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
