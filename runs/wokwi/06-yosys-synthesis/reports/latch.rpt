@@ -1,3 +1,0 @@
-
-16. Executing PROC_DLATCH pass (convert process syncs to latches).
-No latch inferred for signal `\audio_lookup_table.\data_out' from process `\audio_lookup_table.$proc$/Users/anorris/Documents/Github/tt/src/player/audio_lookup_table.v:14$21'.

@@ -1,0 +1,54 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1704896540
+<< nwell >>
+rect -66 377 354 897
+<< pwell >>
+rect 18 43 284 283
+rect -26 -43 314 43
+<< locali >>
+rect 192 435 269 751
+rect 25 310 167 387
+rect 203 99 269 435
+<< obsli1 >>
+rect 0 797 288 831
+rect 18 435 136 751
+rect 18 73 136 265
+rect 0 -17 288 17
+<< metal1 >>
+rect 0 791 288 837
+rect 0 689 288 763
+rect 0 51 288 125
+rect 0 -23 288 23
+<< labels >>
+rlabel locali s 25 310 167 387 6 A
+port 1 nsew signal input
+rlabel metal1 s 0 51 288 125 6 VGND
+port 2 nsew ground bidirectional
+rlabel metal1 s 0 -23 288 23 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s -26 -43 314 43 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s 18 43 284 283 6 VNB
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 791 288 837 6 VPB
+port 4 nsew power bidirectional
+rlabel nwell s -66 377 354 897 6 VPB
+port 4 nsew power bidirectional
+rlabel metal1 s 0 689 288 763 6 VPWR
+port 5 nsew power bidirectional
+rlabel locali s 203 99 269 435 6 Y
+port 6 nsew signal output
+rlabel locali s 192 435 269 751 6 Y
+port 6 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 288 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 82612
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 76906
+<< end >>

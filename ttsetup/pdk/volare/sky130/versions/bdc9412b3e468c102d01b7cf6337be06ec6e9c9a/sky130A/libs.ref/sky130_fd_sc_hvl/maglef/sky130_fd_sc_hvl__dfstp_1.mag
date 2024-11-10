@@ -1,0 +1,159 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1704896540
+<< nwell >>
+rect -66 449 3042 897
+rect -66 377 1029 449
+rect 1434 377 3042 449
+<< pwell >>
+rect 1089 313 1374 361
+rect 4 217 426 241
+rect 1089 217 2972 313
+rect 4 43 2972 217
+rect -26 -43 3002 43
+<< locali >>
+rect 109 415 175 549
+rect 501 305 567 419
+rect 1433 311 1620 359
+rect 1586 202 1620 311
+rect 2177 202 2232 208
+rect 1586 168 2232 202
+rect 1657 111 2232 168
+rect 2884 129 2954 723
+<< obsli1 >>
+rect 0 797 2976 831
+rect 23 293 73 747
+rect 109 585 299 751
+rect 335 589 401 747
+rect 338 489 401 589
+rect 447 525 497 741
+rect 533 489 567 751
+rect 338 455 567 489
+rect 603 657 1001 723
+rect 236 293 302 379
+rect 23 259 302 293
+rect 23 123 76 259
+rect 114 73 232 223
+rect 268 87 302 259
+rect 338 123 388 455
+rect 603 269 637 657
+rect 424 235 637 269
+rect 424 87 458 235
+rect 673 199 707 621
+rect 743 217 777 657
+rect 813 521 879 621
+rect 813 227 847 521
+rect 967 465 1001 657
+rect 1037 535 1085 711
+rect 1121 571 1187 741
+rect 1313 569 1379 621
+rect 1223 535 1379 569
+rect 1415 535 1605 741
+rect 1739 719 1965 761
+rect 1739 569 1773 719
+rect 1809 605 1932 683
+rect 1739 535 1862 569
+rect 1037 501 1257 535
+rect 1293 465 1792 499
+rect 883 395 931 433
+rect 967 431 1327 465
+rect 1363 395 1690 429
+rect 1726 417 1792 465
+rect 883 361 1397 395
+rect 1656 375 1690 395
+rect 1828 375 1862 535
+rect 883 299 931 361
+rect 1027 263 1173 325
+rect 268 53 458 87
+rect 494 73 601 199
+rect 637 99 707 199
+rect 813 193 1263 227
+rect 813 99 863 193
+rect 971 73 1161 157
+rect 1197 53 1263 193
+rect 1360 73 1550 275
+rect 1656 341 1862 375
+rect 1898 497 1932 605
+rect 2002 533 2192 741
+rect 2260 651 2310 751
+rect 2346 671 2536 747
+rect 2276 635 2310 651
+rect 2276 601 2512 635
+rect 2282 535 2348 565
+rect 2282 497 2442 535
+rect 1898 463 2442 497
+rect 1656 309 1757 341
+rect 1898 295 1932 463
+rect 2061 365 2127 427
+rect 2376 401 2442 463
+rect 2478 365 2512 601
+rect 2061 331 2512 365
+rect 2573 479 2623 673
+rect 2659 515 2848 741
+rect 2573 445 2848 479
+rect 2061 309 2127 331
+rect 1805 238 1932 295
+rect 2268 73 2386 295
+rect 2424 195 2490 331
+rect 2573 295 2615 445
+rect 2782 345 2848 445
+rect 2549 195 2615 295
+rect 2651 73 2841 295
+rect 0 -17 2976 17
+<< metal1 >>
+rect 0 791 2976 837
+rect 0 689 2976 763
+rect 0 51 2976 125
+rect 0 -23 2976 23
+<< labels >>
+rlabel locali s 109 415 175 549 6 CLK
+port 1 nsew clock input
+rlabel locali s 501 305 567 419 6 D
+port 2 nsew signal input
+rlabel locali s 1657 111 2232 168 6 SET_B
+port 3 nsew signal input
+rlabel locali s 1586 168 2232 202 6 SET_B
+port 3 nsew signal input
+rlabel locali s 2177 202 2232 208 6 SET_B
+port 3 nsew signal input
+rlabel locali s 1586 202 1620 311 6 SET_B
+port 3 nsew signal input
+rlabel locali s 1433 311 1620 359 6 SET_B
+port 3 nsew signal input
+rlabel metal1 s 0 51 2976 125 6 VGND
+port 4 nsew ground bidirectional
+rlabel metal1 s 0 -23 2976 23 8 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s -26 -43 3002 43 8 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 4 43 2972 217 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 1089 217 2972 313 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 4 217 426 241 6 VNB
+port 5 nsew ground bidirectional
+rlabel pwell s 1089 313 1374 361 6 VNB
+port 5 nsew ground bidirectional
+rlabel metal1 s 0 791 2976 837 6 VPB
+port 6 nsew power bidirectional
+rlabel nwell s 1434 377 3042 449 6 VPB
+port 6 nsew power bidirectional
+rlabel nwell s -66 377 1029 449 6 VPB
+port 6 nsew power bidirectional
+rlabel nwell s -66 449 3042 897 6 VPB
+port 6 nsew power bidirectional
+rlabel metal1 s 0 689 2976 763 6 VPWR
+port 7 nsew power bidirectional
+rlabel locali s 2884 129 2954 723 6 Q
+port 8 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 2976 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 918942
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 889776
+<< end >>

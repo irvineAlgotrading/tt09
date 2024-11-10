@@ -1,0 +1,81 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1704896540
+<< nwell >>
+rect -66 377 834 897
+<< pwell >>
+rect 10 43 764 289
+rect -26 -43 794 43
+<< locali >>
+rect 375 652 409 751
+rect 305 435 409 652
+rect 305 420 359 435
+rect 147 386 359 420
+rect 25 307 110 373
+rect 147 271 181 386
+rect 450 361 551 424
+rect 601 361 743 424
+rect 217 307 319 350
+rect 147 123 254 271
+<< obsli1 >>
+rect 0 797 768 831
+rect 18 456 269 751
+rect 461 460 723 751
+rect 360 291 734 325
+rect 32 87 98 271
+rect 360 87 394 291
+rect 32 53 394 87
+rect 430 73 650 255
+rect 684 105 734 291
+rect 0 -17 768 17
+<< metal1 >>
+rect 0 791 768 837
+rect 0 689 768 763
+rect 0 51 768 125
+rect 0 -23 768 23
+<< labels >>
+rlabel locali s 601 361 743 424 6 A1
+port 1 nsew signal input
+rlabel locali s 450 361 551 424 6 A2
+port 2 nsew signal input
+rlabel locali s 25 307 110 373 6 B1
+port 3 nsew signal input
+rlabel locali s 217 307 319 350 6 B2
+port 4 nsew signal input
+rlabel metal1 s 0 51 768 125 6 VGND
+port 5 nsew ground bidirectional
+rlabel metal1 s 0 -23 768 23 8 VNB
+port 6 nsew ground bidirectional
+rlabel pwell s -26 -43 794 43 8 VNB
+port 6 nsew ground bidirectional
+rlabel pwell s 10 43 764 289 6 VNB
+port 6 nsew ground bidirectional
+rlabel metal1 s 0 791 768 837 6 VPB
+port 7 nsew power bidirectional
+rlabel nwell s -66 377 834 897 6 VPB
+port 7 nsew power bidirectional
+rlabel metal1 s 0 689 768 763 6 VPWR
+port 8 nsew power bidirectional
+rlabel locali s 147 123 254 271 6 Y
+port 9 nsew signal output
+rlabel locali s 147 271 181 386 6 Y
+port 9 nsew signal output
+rlabel locali s 147 386 359 420 6 Y
+port 9 nsew signal output
+rlabel locali s 305 420 359 435 6 Y
+port 9 nsew signal output
+rlabel locali s 305 435 409 652 6 Y
+port 9 nsew signal output
+rlabel locali s 375 652 409 751 6 Y
+port 9 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 768 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 386136
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 376348
+<< end >>

@@ -1,0 +1,47 @@
+project:
+  title: "192kHz 16-bit Audio Player"
+  author: "Andy Norris"
+  discord: ""
+  description:
+    "High-quality audio playback module with 16-bit resolution at 192kHz"
+  language: "Verilog"
+  clock_hz: 3125000 # 3.125 MHz clock
+  tiles: "1x1"
+  top_module: "tt_um_audio_player"
+  source_files:
+    - "player/tt_um_audio_player.v"
+    - "player/player.v"
+    - "player/audio_lookup_table.v"
+
+pinout:
+  ui[0]: "play_pause"
+  ui[1]: "unused"
+  ui[2]: "unused"
+  ui[3]: "unused"
+  ui[4]: "unused"
+  ui[5]: "unused"
+  ui[6]: "unused"
+  ui[7]: "unused"
+
+  uo[0]: "audio_out"
+  uo[1]: "unused"
+  uo[2]: "unused"
+  uo[3]: "unused"
+  uo[4]: "unused"
+  uo[5]: "unused"
+  uo[6]: "unused"
+  uo[7]: "unused"
+
+  uio[0]: "unused"
+  uio[1]: "unused"
+  uio[2]: "unused"
+  uio[3]: "unused"
+  uio[4]: "unused"
+  uio[5]: "unused"
+  uio[6]: "unused"
+  uio[7]: "unused"
+
+external_hw:
+  - "Piezo speaker connected across io_out[1:0]"
+
+yaml_version: 6

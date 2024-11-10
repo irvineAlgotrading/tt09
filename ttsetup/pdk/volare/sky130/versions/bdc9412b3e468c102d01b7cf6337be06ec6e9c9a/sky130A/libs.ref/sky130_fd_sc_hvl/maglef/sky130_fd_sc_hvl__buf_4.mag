@@ -1,0 +1,84 @@
+magic
+tech sky130A
+magscale 1 2
+timestamp 1704896540
+<< nwell >>
+rect -66 377 1026 897
+<< pwell >>
+rect 66 43 956 283
+rect -26 -43 986 43
+<< locali >>
+rect 244 415 294 751
+rect 556 415 622 751
+rect 244 381 622 415
+rect 244 356 278 381
+rect 25 310 278 356
+rect 777 355 843 424
+rect 244 275 278 310
+rect 244 241 606 275
+rect 244 99 294 241
+rect 556 99 606 241
+<< obsli1 >>
+rect 0 797 960 831
+rect 18 435 208 751
+rect 330 451 520 751
+rect 658 460 848 751
+rect 314 319 720 345
+rect 884 319 934 751
+rect 314 311 934 319
+rect 686 285 934 311
+rect 18 73 208 265
+rect 330 73 520 205
+rect 642 73 832 249
+rect 868 99 934 285
+rect 0 -17 960 17
+<< metal1 >>
+rect 0 791 960 837
+rect 0 689 960 763
+rect 0 51 960 125
+rect 0 -23 960 23
+<< labels >>
+rlabel locali s 777 355 843 424 6 A
+port 1 nsew signal input
+rlabel metal1 s 0 51 960 125 6 VGND
+port 2 nsew ground bidirectional
+rlabel metal1 s 0 -23 960 23 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s -26 -43 986 43 8 VNB
+port 3 nsew ground bidirectional
+rlabel pwell s 66 43 956 283 6 VNB
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 791 960 837 6 VPB
+port 4 nsew power bidirectional
+rlabel nwell s -66 377 1026 897 6 VPB
+port 4 nsew power bidirectional
+rlabel metal1 s 0 689 960 763 6 VPWR
+port 5 nsew power bidirectional
+rlabel locali s 556 99 606 241 6 X
+port 6 nsew signal output
+rlabel locali s 244 99 294 241 6 X
+port 6 nsew signal output
+rlabel locali s 244 241 606 275 6 X
+port 6 nsew signal output
+rlabel locali s 244 275 278 310 6 X
+port 6 nsew signal output
+rlabel locali s 25 310 278 356 6 X
+port 6 nsew signal output
+rlabel locali s 244 356 278 381 6 X
+port 6 nsew signal output
+rlabel locali s 244 381 622 415 6 X
+port 6 nsew signal output
+rlabel locali s 556 415 622 751 6 X
+port 6 nsew signal output
+rlabel locali s 244 415 294 751 6 X
+port 6 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 960 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 841122
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 829916
+<< end >>

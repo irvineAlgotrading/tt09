@@ -1,0 +1,89 @@
+magic
+tech sky130B
+magscale 1 2
+timestamp 1704896540
+<< nwell >>
+rect -66 377 1122 897
+<< pwell >>
+rect 772 283 1038 291
+rect 4 43 1038 283
+rect -26 -43 1082 43
+<< locali >>
+rect 313 420 651 424
+rect 115 386 651 420
+rect 115 345 181 386
+rect 585 361 651 386
+rect 805 415 855 751
+rect 805 381 1031 415
+rect 217 316 412 350
+rect 889 309 1031 381
+rect 950 107 1031 309
+<< obsli1 >>
+rect 0 797 1056 831
+rect 18 526 197 751
+rect 233 490 267 751
+rect 22 456 267 490
+rect 303 460 769 751
+rect 22 280 72 456
+rect 893 451 1011 751
+rect 730 325 796 345
+rect 448 291 796 325
+rect 448 280 482 291
+rect 22 246 482 280
+rect 22 99 88 246
+rect 518 221 860 257
+rect 122 73 482 210
+rect 518 99 584 221
+rect 620 73 726 185
+rect 794 107 860 221
+rect 0 -17 1056 17
+<< metal1 >>
+rect 0 791 1056 837
+rect 0 689 1056 763
+rect 0 51 1056 125
+rect 0 -23 1056 23
+<< labels >>
+rlabel locali s 217 316 412 350 6 A
+port 1 nsew signal input
+rlabel locali s 585 361 651 386 6 B
+port 2 nsew signal input
+rlabel locali s 115 345 181 386 6 B
+port 2 nsew signal input
+rlabel locali s 115 386 651 420 6 B
+port 2 nsew signal input
+rlabel locali s 313 420 651 424 6 B
+port 2 nsew signal input
+rlabel metal1 s 0 51 1056 125 6 VGND
+port 3 nsew ground bidirectional
+rlabel metal1 s 0 -23 1056 23 8 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s -26 -43 1082 43 8 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 4 43 1038 283 6 VNB
+port 4 nsew ground bidirectional
+rlabel pwell s 772 283 1038 291 6 VNB
+port 4 nsew ground bidirectional
+rlabel metal1 s 0 791 1056 837 6 VPB
+port 5 nsew power bidirectional
+rlabel nwell s -66 377 1122 897 6 VPB
+port 5 nsew power bidirectional
+rlabel metal1 s 0 689 1056 763 6 VPWR
+port 6 nsew power bidirectional
+rlabel locali s 950 107 1031 309 6 Y
+port 7 nsew signal output
+rlabel locali s 889 309 1031 381 6 Y
+port 7 nsew signal output
+rlabel locali s 805 381 1031 415 6 Y
+port 7 nsew signal output
+rlabel locali s 805 415 855 751 6 Y
+port 7 nsew signal output
+<< properties >>
+string FIXED_BBOX 0 0 1056 814
+string LEFclass CORE
+string LEFsite unithv
+string LEFsymmetry X Y
+string LEFview TRUE
+string GDS_END 731298
+string GDS_FILE $PDKPATH/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds
+string GDS_START 719110
+<< end >>
