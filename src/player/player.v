@@ -7,8 +7,8 @@ module player #(
     input  wire        clk,
     input  wire        rst_n,
     input  wire        enable,
-    output reg         audio_out,
-    output reg  [15:0] current_addr,
+    output wire        audio_out,
+    output reg  [13:0] current_addr,   // Changed from [15:0] to [13:0]
     output wire [15:0] audio_sample,
     output wire [7:0]  pwm_value,
     output wire [7:0]  sample_scaled
@@ -42,7 +42,7 @@ module player #(
         if (!rst_n) begin
             current_addr <= 0;
         end else if (enable && sample_tick) begin
-            if (current_addr >= 48000 - 1)  // 3 seconds at 16kHz
+            if (current_addr >= 16383)  // 14-bit address max
                 current_addr <= 0;
             else
                 current_addr <= current_addr + 1;
@@ -51,7 +51,7 @@ module player #(
 
     // Audio lookup
     audio_lookup_table lookup (
-        .address(current_addr),
+        .address(current_addr),  // Now matches the 14-bit input
         .data_out(audio_sample)
     );
 
@@ -79,14 +79,5 @@ module player #(
     // Debug outputs
     assign pwm_value = {pwm_counter, 4'b0};
     assign sample_scaled = {pwm_threshold, 4'b0};
-
-    // Initial values
-    initial begin
-        current_addr = 0;
-        audio_out = 0;
-        sample_counter = 0;
-        sample_tick = 0;
-        pwm_counter = 0;
-    end
 
 endmodule
