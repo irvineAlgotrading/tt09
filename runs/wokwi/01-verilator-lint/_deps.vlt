@@ -1,0 +1,5 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/Users/anorris/Documents/Github/tt/runs/wokwi/tmp/dbe4df8cd3d94b59b72432e4be19ab21.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/Users/anorris/Documents/Github/tt/runs/wokwi/tmp/dbe4df8cd3d94b59b72432e4be19ab21.bb.v"

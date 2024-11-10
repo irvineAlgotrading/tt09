@@ -1,0 +1,38 @@
+49. Printing statistics.
+
+=== tt_um_audio_player ===
+
+   Number of wires:               1726
+   Number of wire bits:           1790
+   Number of public wires:          13
+   Number of public wire bits:      77
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1748
+     $_ANDNOT_                     340
+     $_AND_                         22
+     $_DFFE_PN0P_                   29
+     $_DFF_PN0_                      6
+     $_MUX_                        936
+     $_NAND_                        65
+     $_NOR_                          8
+     $_NOT_                         29
+     $_ORNOT_                       10
+     $_OR_                         271
+     $_XNOR_                         9
+     $_XOR_                         23
+
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_DFFE_PN0P_ is unknown!
+
