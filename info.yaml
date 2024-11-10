@@ -5,7 +5,7 @@ project:
   description:
     "High-quality audio playback module with 16-bit resolution at 16kHz"
   language: "Verilog"
-  clock_hz: 3125000 # 3.125 MHz clock
+  clock_hz: 400000 # 4 kHz clock
   tiles: "1x1"
   top_module: "tt_um_audio_player"
   source_files:
