@@ -7,11 +7,11 @@ module audio_lookup_table (
     reg [15:0] rom [0:16383];  // 16K samples
 
     initial begin
-        if (!$value$plusargs("ROM=%s", rom_file)) begin
-            $readmemh("../src/player/audio_data.hex", rom);
-        end else begin
-            $readmemh(rom_file, rom);
-        end
+`ifdef SIMULATION
+        $readmemh("../src/player/audio_data.hex", rom);
+`else
+        $readmemh("audio_data.hex", rom);
+`endif
     end
 
     always @(*) begin
