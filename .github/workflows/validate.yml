@@ -1,0 +1,79 @@
+name: Project Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Verify Project Configuration
+      run: |
+        # Add your verification commands here
+        if [ ! -f "player/tt_um_audio_player.v" ]; then
+          echo "Error: Main module file missing"
+          exit 1
+        fi
+    
+    - name: Setup Tools
+      run: |
+        # Add commands to install necessary tools
+        sudo apt-get update
+        sudo apt-get install -y iverilog
+
+    - name: Simulation
+      run: |
+        # Run simulation and generate any output files
+        mkdir -p build
+        iverilog -o build/sim player/*.v
+        
+    - name: Upload Configuration
+      uses: actions/upload-artifact@v4
+      with:
+        name: project-config
+        path: |
+          *.yaml
+          *.yml
+        retention-days: 5
+
+    - name: Upload Source Files
+      uses: actions/upload-artifact@v4
+      with:
+        name: verilog-sources
+        path: |
+          player/*.v
+          build/
+        retention-days: 5
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-outputs
+        path: |
+          build/
+          *.out
+          *.vcd
+        retention-days: 5
+
+  # Optional: Add a second job that depends on the artifacts
+  verify:
+    needs: validate
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Download Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-outputs
+        path: build-outputs
+
+    - name: Verify Artifacts
+      run: |
+        ls -R build-outputs
+        # Add additional verification steps here
