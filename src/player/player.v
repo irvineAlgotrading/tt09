@@ -1,14 +1,14 @@
 `default_nettype none
 
 module player #(
-    parameter CLOCK_RATE = 3_125_000,  // 3.125 MHz
+    parameter CLOCK_RATE = 400_000,  // 400kHz
     parameter SAMPLE_RATE = 16_000     // 16 kHz
 ) (
     input  wire        clk,
     input  wire        rst_n,
     input  wire        enable,
-    output wire        audio_out,
-    output reg  [13:0] current_addr,   // Changed from [15:0] to [13:0]
+    output reg        audio_out,     // Changed from wire to reg
+    output reg  [13:0] current_addr,
     output wire [15:0] audio_sample,
     output wire [7:0]  pwm_value,
     output wire [7:0]  sample_scaled
