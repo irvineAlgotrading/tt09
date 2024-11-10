@@ -2,6 +2,15 @@
 ttsetup/pdk/volare/sky130/versions/*/sky130*/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
 ttsetup/pdk/volare/sky130/versions/*/sky130*/libs.ref/sky130_fd_sc_hd/lib/*.lib
 
+# Directories to ignore
+runs/
+tt/
+
+# Source directory - ignore all except config.json and subdirectories
+src/*
+!src/*/
+!src/config.json
+
 # Common files to ignore
 *.o
 *.a
