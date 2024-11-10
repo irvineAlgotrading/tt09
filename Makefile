@@ -7,14 +7,18 @@ GEN_DIR = $(SRC_DIR)/generator
 TEST_DIR = test
 
 # Source files
-VERILOG_SOURCES += $(PWD)/../src/player/tt_um_audio_player.v
-VERILOG_SOURCES += $(PWD)/../src/player/player.v
-VERILOG_SOURCES += $(PWD)/../src/player/audio_lookup_table.v
-VERILOG_SOURCES += $(PWD)/tb.v
+WAV_FILE = $(GEN_DIR)/audiohifi.wav
+LOOKUP_TABLE_V = $(VERILOG_DIR)/audio_lookup_table.v
+LOOKUP_TABLE_HEX = $(VERILOG_DIR)/audio_data.hex
+TOP_V = $(VERILOG_DIR)/tt_um_audio_player.v
+PLAYER_V = $(VERILOG_DIR)/player.v
+
+# Verilog sources for simulation
+VERILOG_SOURCES = $(TOP_V) $(PLAYER_V) $(LOOKUP_TABLE_V) $(TEST_DIR)/tb.v
 
 # Test files
 TB_V = $(TEST_DIR)/tb.v
-VCD_FILE = $(TEST_DIR)/tb.vcd
+VCD_FILE = tb.vcd
 VVP_FILE = $(TEST_DIR)/tb.vvp
 
 # Tools
@@ -29,10 +33,16 @@ all: generate simulate wave
 # Generate Verilog and hex files from WAV
 .PHONY: generate
 generate: $(LOOKUP_TABLE_V) $(LOOKUP_TABLE_HEX)
+	@echo "Audio files generated"
 
 $(LOOKUP_TABLE_V) $(LOOKUP_TABLE_HEX): $(WAV_FILE) $(GEN_DIR)/convert_wav_to_hex.py
 	@echo "Generating audio lookup table..."
-	@cd $(GEN_DIR) && $(PYTHON) convert_wav_to_hex.py audiohifi.wav ../player/audio_data.hex ../player/audio_lookup_table.v
+	@cd $(GEN_DIR) && \
+	$(PYTHON) convert_wav_to_hex.py \
+		audiohifi.wav \
+		$(abspath $(LOOKUP_TABLE_HEX)) \
+		$(abspath $(LOOKUP_TABLE_V))
+	@cp $(LOOKUP_TABLE_HEX) $(TEST_DIR)/audio_data.hex
 	@echo "Generated audio files successfully"
 
 # Simulation targets
@@ -41,15 +51,15 @@ simulate: $(VVP_FILE)
 	@echo "Running simulation..."
 	$(VVP) $(VVP_FILE)
 
-$(VVP_FILE): $(TOP_V) $(PLAYER_V) $(LOOKUP_TABLE_V) $(TB_V)
+$(VVP_FILE): $(VERILOG_SOURCES)
 	@echo "Compiling Verilog files..."
-	$(IVERILOG) -I$(SRC_DIR) -I$(VERILOG_DIR) -o $@ $^
+	$(IVERILOG) -o $@ $^
 
 # View waveform
 .PHONY: wave
 wave: $(VCD_FILE)
 	@echo "Opening waveform viewer..."
-	$(GTKWAVE) $(VCD_FILE) $(TEST_DIR)/tb.gtkw &
+	code $(VCD_FILE)
 
 # Run python tests if they exist
 .PHONY: test
@@ -63,17 +73,16 @@ test: generate
 # Clean up generated files
 .PHONY: clean
 clean:
-	# Remove lookup table files if they exist
-	rm -f $(VERILOG_DIR)/audio_lookup_table.v $(VERILOG_DIR)/audio_data.hex
-
-	# Remove VVP and VCD files if they exist
+	# Remove lookup table files
+	rm -f $(LOOKUP_TABLE_V) $(LOOKUP_TABLE_HEX)
+	# Remove hex file from test directory
+	rm -f $(TEST_DIR)/audio_data.hex
+	# Remove VVP and VCD files
 	rm -f $(VVP_FILE) $(VCD_FILE)
-
-	# Remove Python cache files and pyc files if they exist
+	# Remove Python cache files
 	rm -rf $(TEST_DIR)/__pycache__
 	rm -f $(TEST_DIR)/*.pyc
-
-	# Remove results.xml if it exists
+	# Remove results.xml
 	rm -f results.xml
 
 # Show help
@@ -83,15 +92,10 @@ help:
 	@echo "  all        - Generate audio files, run simulation, and show waveform"
 	@echo "  generate   - Generate Verilog and hex files from WAV"
 	@echo "  simulate   - Run Verilog simulation"
-	@echo "  wave       - View waveform in GTKWave"
+	@echo "  wave      - View waveform in VSCode"
 	@echo "  test       - Run Python tests if they exist"
 	@echo "  clean      - Remove generated files"
 	@echo "  help       - Show this help message"
 
 # Prevent make from deleting intermediate files
 .PRECIOUS: $(LOOKUP_TABLE_V) $(LOOKUP_TABLE_HEX)
-
-# View waveform with VSCode Wavetrace
-.PHONY: wave
-wave: $(VCD_FILE)
-	code test/tb.vcd

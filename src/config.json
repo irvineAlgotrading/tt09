@@ -13,7 +13,7 @@
 
   "//": "PL_TARGET_DENSITY_PCT - You can increase this if Global Placement fails with error GPL-0302.",
   "//": "Users have reported that values up to 80 worked well for them.",
-  "PL_TARGET_DENSITY_PCT": 69,
+  "PL_TARGET_DENSITY_PCT": 55,
 
   "//": "CLOCK_PERIOD - Increase this in case you are getting setup time violations.",
   "//": "The value is in nanoseconds, so 20ns == 50MHz.",
@@ -27,9 +27,29 @@
   "RUN_LINTER": 1,
   "LINTER_INCLUDE_PDK_MODELS": 1,
 
+  "DESIGN_NAME": "tt_um_audio_player",
+  "VERILOG_FILES": [
+    "src/player/tt_um_audio_player.v",
+    "src/player/player.v",
+    "src/player/audio_lookup_table.v"
+  ],
+  
   "//": "If you need a custom clock configuration, read the following documentation first:",
   "//": "https://tinytapeout.com/faq/#how-can-i-map-an-additional-external-clock-to-one-of-the-gpios",
   "CLOCK_PORT": "clk",
+  "CLOCK_NET": "clk",
+
+  "//": "Timing and optimization parameters",
+  "MAX_FANOUT_CONSTRAINT": 10,
+  "MAX_TRANSITION_CONSTRAINT": 0.75,
+  "MAX_CAPACITANCE_CONSTRAINT": 0.1,
+  "GRT_ADJUSTMENT": 0.1,
+  "PL_RESIZER_BUFFER_INPUT_PORTS": 1,
+
+  "//": "Antenna fixes",
+  "RUN_ANTENNA_CHECK": 1,
+  "GRT_ANTENNA_ITERS": 5,
+  "RUN_HEURISTIC_DIODE_INSERTION": 1,
 
   "//": "Configuration docs: https://openlane.readthedocs.io/en/latest/reference/configuration.html",
 
@@ -52,6 +72,7 @@
 
   "//": "Absolute die size",
   "FP_SIZING": "absolute",
+  "DIE_AREA": "0 0 168.36 111.52",
 
   "GRT_ALLOW_CONGESTION": 1,
 
