@@ -13,10 +13,10 @@ module tb;
     wire [7:0] uio_oe;
     real audio_value;
 
-    // Clock: 3.125MHz (320ns period)
+    // Clock: 400kHz (2500ns period)
     initial begin
         clk = 0;
-        forever #160 clk = ~clk;
+        forever #1250 clk = ~clk;
     end
 
     // Audio value conversion

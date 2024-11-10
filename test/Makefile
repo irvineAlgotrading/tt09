@@ -1,13 +1,16 @@
-# Directories
-SRC_DIR = $(PWD)/../src
-VERILOG_DIR = $(SRC_DIR)/verilog
+# Makefile
+SIM ?= icarus
+TOPLEVEL_LANG ?= verilog
 
-# Source files
-VERILOG_SOURCES = \
-    $(SRC_DIR)/tt_um_audio_player.v \
-    $(VERILOG_DIR)/player.v \
-    $(VERILOG_DIR)/audio_lookup_table.v \
-    tb.v
+VERILOG_SOURCES += $(PWD)/../player/tt_um_audio_player.v
+VERILOG_SOURCES += $(PWD)/../player/player.v
+VERILOG_SOURCES += $(PWD)/../player/audio_lookup_table.v
+VERILOG_SOURCES += $(PWD)/tb.v
+
+TOPLEVEL = tb_audio_player
+MODULE = test
+
+include $(shell cocotb-config --makefiles)/Makefile.sim
 
 # Simulation settings
 IVERILOG_OPTS = -I$(SRC_DIR) -I$(VERILOG_DIR) -DSIMULATION
