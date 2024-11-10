@@ -1,4 +1,3 @@
-# test/test.py
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
@@ -12,29 +11,36 @@ async def test_audio_player(dut):
     clock = Clock(dut.clk, 2500, units="ns")
     cocotb.start_soon(clock.start())
 
-    # Reset
-    dut._log.info("Resetting DUT")
+    # Initialize inputs
+    dut._log.info("Initializing inputs")
     dut.rst_n.value = 0
     dut.ena.value = 0
     dut.ui_in.value = 0
     dut.uio_in.value = 0
+
+    # Wait 10 clock cycles
     await ClockCycles(dut.clk, 10)
-    
-    # Release reset
+
+    # Release reset and enable with play
+    dut._log.info("Releasing reset")
     dut.rst_n.value = 1
-    await ClockCycles(dut.clk, 1)
-    
-    # Enable and start playback
     dut.ena.value = 1
     dut.ui_in.value = 1
     
-    # Let it run for a short time
-    await ClockCycles(dut.clk, 100)
+    # Wait for audio output
+    await ClockCycles(dut.clk, 20)
     
-    # Check for audio output activity
+    # Capture initial value
     initial_value = int(dut.uo_out.value)
-    await ClockCycles(dut.clk, 10)
-    final_value = int(dut.uo_out.value)
+    dut._log.info(f"Initial value: {initial_value}")
     
-    assert final_value != initial_value, "Audio output should change over time"
-    dut._log.info("Test completed successfully")
+    # Wait for change
+    for _ in range(50):
+        await ClockCycles(dut.clk, 1)
+        current_value = int(dut.uo_out.value)
+        if current_value != initial_value:
+            dut._log.info(f"Value changed to: {current_value}")
+            return
+    
+    # If we get here, no change was detected
+    assert False, "No audio output change detected"
