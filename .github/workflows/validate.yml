@@ -13,27 +13,46 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: List Directory Structure
+      run: |
+        echo "Current directory structure:"
+        ls -R
+        pwd
+
     - name: Verify Project Configuration
       run: |
-        # Add your verification commands here
-        if [ ! -f "player/tt_um_audio_player.v" ]; then
-          echo "Error: Main module file missing"
+        echo "Checking project structure..."
+        
+        # Check for source directory
+        if [ ! -d "src/player" ]; then
+          echo "Error: src/player directory not found"
+          exit 1
+        fi
+        
+        # Check for main module file
+        if [ -f "src/player/tt_um_audio_player.v" ]; then
+          echo "Found main module in src/player directory"
+        else
+          echo "Error: Could not find tt_um_audio_player.v in src/player directory"
           exit 1
         fi
     
     - name: Setup Tools
       run: |
-        # Add commands to install necessary tools
         sudo apt-get update
         sudo apt-get install -y iverilog
 
     - name: Simulation
+      if: success()
       run: |
-        # Run simulation and generate any output files
+        # Create build directory
         mkdir -p build
-        iverilog -o build/sim player/*.v
+        
+        # Compile Verilog files
+        iverilog -o build/sim src/player/*.v
         
     - name: Upload Configuration
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: project-config
@@ -43,15 +62,16 @@ jobs:
         retention-days: 5
 
     - name: Upload Source Files
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: verilog-sources
         path: |
-          player/*.v
-          build/
+          src/player/*.v
         retention-days: 5
 
     - name: Upload Build Artifacts
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: build-outputs
@@ -60,20 +80,3 @@ jobs:
           *.out
           *.vcd
         retention-days: 5
-
-  # Optional: Add a second job that depends on the artifacts
-  verify:
-    needs: validate
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: build-outputs
-        path: build-outputs
-
-    - name: Verify Artifacts
-      run: |
-        ls -R build-outputs
-        # Add additional verification steps here
