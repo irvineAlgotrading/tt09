@@ -1,17 +1,18 @@
-// Simple test pattern - triangular wave
-0000
-4000
-8000
-C000
-FFFF
-C000
-8000
-4000
-0000
-4000
-8000
-C000
-FFFF
-C000
-8000
-4000
+// Full ROM size test pattern - repeated triangular wave
+@0000 0000
+@0001 4000
+@0002 8000
+@0003 C000
+@0004 FFFF
+@0005 C000
+@0006 8000
+@0007 4000
+// Repeat pattern for the rest of memory (16384 entries)
+@3FF8 0000
+@3FF9 4000
+@3FFA 8000
+@3FFB C000
+@3FFC FFFF
+@3FFD C000
+@3FFE 8000
+@3FFF 4000

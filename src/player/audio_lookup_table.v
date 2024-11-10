@@ -7,19 +7,17 @@ module audio_lookup_table (
     reg [15:0] rom [0:16383];  // 16K samples
 
     initial begin
-`ifdef SIMULATION
-        $readmemh("../src/player/audio_data.hex", rom);
-`else
+        integer i;
+        // Initialize all memory to 0
+        for (i = 0; i < 16384; i = i + 1) begin
+            rom[i] = 16'h0000;
+        end
+        // Load pattern from file
         $readmemh("audio_data.hex", rom);
-`endif
     end
 
     always @(*) begin
-        if ({2'b00, address} < 16384) begin
-            data_out = rom[address];
-        end else begin
-            data_out = 16'd0;
-        end
+        data_out = rom[address];
     end
 
 endmodule
