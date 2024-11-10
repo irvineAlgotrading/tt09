@@ -1,8 +1,8 @@
 `default_nettype none
 `timescale 1ns/1ps
 
-module tb;
-    // Basic setup
+module tb_audio_player;
+
     reg clk;
     reg rst_n;
     reg ena;
@@ -13,7 +13,7 @@ module tb;
     wire [7:0] uio_oe;
     real audio_value;
 
-    // Clock: 400kHz (2500ns period)
+    // Clock: 3.125MHz (2500ns period)
     initial begin
         clk = 0;
         forever #1250 clk = ~clk;
@@ -47,8 +47,8 @@ module tb;
         rst_n = 1;
 
         // Setup waveform dump
-        $dumpfile("test/tb.vcd");  // Modified to include "test/" directory
-        $dumpvars(0, tb);
+        $dumpfile("tb.vcd");
+        $dumpvars(0, tb_audio_player);  // Changed from tb to tb_audio_player
 
         // Initial delay
         #1000;
@@ -73,10 +73,9 @@ module tb;
     initial begin
         forever begin
             #1_000_000; // Every 1ms
-            $display("Time: %t ms, Address: %d, Sample: %h",
+            $display("Time: %t ms, Audio Value: %f V",
                     $time/1_000_000,
-                    dut.audio_player_inst.current_addr,
-                    dut.audio_player_inst.audio_sample);
+                    audio_value);
         end
     end
 
