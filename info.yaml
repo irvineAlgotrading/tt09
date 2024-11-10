@@ -1,9 +1,9 @@
 project:
-  title: "192kHz 16-bit Audio Player"
+  title: "16kHz 16-bit Audio Player"
   author: "Andy Norris"
   discord: ""
   description:
-    "High-quality audio playback module with 16-bit resolution at 192kHz"
+    "High-quality audio playback module with 16-bit resolution at 16kHz"
   language: "Verilog"
   clock_hz: 3125000 # 3.125 MHz clock
   tiles: "1x1"
