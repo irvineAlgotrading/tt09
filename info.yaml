@@ -8,9 +8,9 @@ project:
   clock_hz: 400000 # 400kHz clock
   top_module: "tt_um_audio_player"
   source_files:
-    - "src/player/tt_um_audio_player.v"
-    - "src/player/player.v"
-    - "src/player/audio_lookup_table.v"
+    - "player/tt_um_audio_player.v"
+    - "player/player.v"
+    - "player/audio_lookup_table.v"
 
 pinout:
   ui[0]: "play_pause"

@@ -7,11 +7,10 @@ GEN_DIR = $(SRC_DIR)/generator
 TEST_DIR = test
 
 # Source files
-WAV_FILE = $(GEN_DIR)/audiohifi.wav
-LOOKUP_TABLE_V = $(VERILOG_DIR)/audio_lookup_table.v
-LOOKUP_TABLE_HEX = $(VERILOG_DIR)/audio_data.hex
-PLAYER_V = $(VERILOG_DIR)/player.v
-TOP_V = $(VERILOG_DIR)/tt_um_audio_player.v
+VERILOG_SOURCES += $(PWD)/../src/player/tt_um_audio_player.v
+VERILOG_SOURCES += $(PWD)/../src/player/player.v
+VERILOG_SOURCES += $(PWD)/../src/player/audio_lookup_table.v
+VERILOG_SOURCES += $(PWD)/tb.v
 
 # Test files
 TB_V = $(TEST_DIR)/tb.v
