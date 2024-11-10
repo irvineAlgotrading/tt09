@@ -1,6 +1,6 @@
 `default_nettype none
 
-module audio_player #(
+module player #(
     parameter CLOCK_RATE = 3_125_000,  // 3.125 MHz
     parameter SAMPLE_RATE = 16_000     // 16 kHz
 ) (

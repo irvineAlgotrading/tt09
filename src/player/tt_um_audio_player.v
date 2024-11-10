@@ -11,42 +11,36 @@ module tt_um_audio_player (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    // Signal declarations
-    wire audio_out;
-    /* verilator lint_off UNUSEDSIGNAL */
+    // Internal wires
     wire [15:0] current_addr;
     wire [15:0] audio_sample;
     wire [7:0] pwm_value;
     wire [7:0] sample_scaled;
-    /* verilator lint_on UNUSEDSIGNAL */
 
-    // Audio player instance
-    audio_player #(
-        .CLOCK_RATE(3_125_000),  // 3.125 MHz
-        .SAMPLE_RATE(16_000)     // 16 kHz
-    ) audio_player_inst (
+    // Instantiate the audio player
+    player audio_player_inst (
         .clk(clk),
         .rst_n(rst_n),
-        .enable(ena),
-        .audio_out(audio_out),
+        .enable(ena),          // changed from ena to enable to match module
+        .audio_out(uo_out[0]), // connect audio output to first output bit
         .current_addr(current_addr),
         .audio_sample(audio_sample),
         .pwm_value(pwm_value),
         .sample_scaled(sample_scaled)
     );
 
-    // Output registers
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            uo_out <= 8'b0;
-        end else begin
-            uo_out[0] <= audio_out;    // PWM audio output
-            uo_out[7:1] <= 7'b0;       // Unused outputs
-        end
-    end
+    // Connect outputs
+    assign uio_out = 8'b0;        // Not using bidirectional pins for output
+    assign uio_oe = 8'b0;         // All bidirectional pins are inputs
 
-    // Bidirectional pins configuration
-    assign uio_out = 8'b0;    // Not using bidirectional pins
-    assign uio_oe = 8'b0;     // All pins as inputs
+    // Register the PWM output
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            uo_out <= 8'b0;
+        else if (ena)
+            uo_out <= pwm_value;   // Output the PWM value
+        else
+            uo_out <= 8'b0;
+    end
 
 endmodule

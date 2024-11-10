@@ -8,7 +8,7 @@ module audio_lookup_table (
     reg [15:0] rom [0:16383];
 
     initial begin
-        $readmemh("/Users/anorris/Documents/Github/tt/src/player/audio_data.hex", rom);
+        $readmemh("audio_data.hex", rom);
     end
 
     always @(*) begin
