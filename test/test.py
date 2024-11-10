@@ -1,41 +1,47 @@
+import os
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles, Timer
+from cocotb.triggers import RisingEdge, FallingEdge, Timer, ClockCycles
+from cocotb.regression import TestFactory
 
-@cocotb.test()
-async def test_audio_player(dut):
-    dut._log.info("Start")
-
-    # Create clock (3.125 MHz = 2500ns period)
+async def run_test(dut):
+    """Test the audio player"""
+    
+    # Create a 3.125MHz clock
     clock = Clock(dut.clk, 2500, units="ns")
-    cocotb.start_soon(clock.start())  # Added this line
+    cocotb.start_soon(clock.start())
 
-    # Reset
-    dut._log.info("Applying reset")
+    # Reset values
     dut.rst_n.value = 0
     dut.ena.value = 0
     dut.ui_in.value = 0
-    dut.uio_in.value = 0  # Added this line
+    dut.uio_in.value = 0
+
+    # Wait 10 clock cycles
     await ClockCycles(dut.clk, 10)
-    
-    # Release reset and enable
-    dut._log.info("Releasing reset")
+
+    # Take design out of reset
     dut.rst_n.value = 1
     await ClockCycles(dut.clk, 1)
-    dut.ena.value = 1
     
+    # Enable the design
+    dut.ena.value = 1
+    await ClockCycles(dut.clk, 1)
+
     # Start playback
-    dut._log.info("Starting playback")
     dut.ui_in.value = 1
     
-    # Wait for some audio output
-    await ClockCycles(dut.clk, 1000)
-    
-    # Check that we get some audio output variation
-    dut._log.info("Checking audio output")
+    # Record initial value
+    await ClockCycles(dut.clk, 100)
     initial_value = int(dut.uo_out.value)
+    
+    # Wait and check for changes
     await ClockCycles(dut.clk, 100)
     final_value = int(dut.uo_out.value)
     
-    assert final_value != initial_value, "Audio output should change over time"
-    dut._log.info("Test completed successfully")
+    assert final_value != initial_value, f"Audio output not changing. Initial: {initial_value}, Final: {final_value}"
+
+@cocotb.test()
+async def test_audio_player(dut):
+    """Wrapper for the main test"""
+    await run_test(dut)
