@@ -1,0 +1,17 @@
+// Simple test pattern - triangular wave
+0000
+4000
+8000
+C000
+FFFF
+C000
+8000
+4000
+0000
+4000
+8000
+C000
+FFFF
+C000
+8000
+4000
