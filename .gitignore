@@ -1,1 +1,12 @@
-ttsetup/pdk/
+# PDK files
+ttsetup/pdk/volare/sky130/versions/*/sky130*/libs.ref/sky130_fd_io/gds/sky130_fd_io.gds
+ttsetup/pdk/volare/sky130/versions/*/sky130*/libs.ref/sky130_fd_sc_hd/lib/*.lib
+
+# Common files to ignore
+*.o
+*.a
+*.log
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
