@@ -13,10 +13,12 @@ module tt_um_audio_player (
 
     // Signal declarations
     wire audio_out;
+    /* verilator lint_off UNUSEDSIGNAL */
     wire [15:0] current_addr;
     wire [15:0] audio_sample;
     wire [7:0] pwm_value;
     wire [7:0] sample_scaled;
+    /* verilator lint_on UNUSEDSIGNAL */
 
     // Audio player instance
     audio_player #(
