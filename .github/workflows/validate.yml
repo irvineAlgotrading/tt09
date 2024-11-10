@@ -23,13 +23,11 @@ jobs:
       run: |
         echo "Checking project structure..."
         
-        # Check for source directory
         if [ ! -d "src/player" ]; then
           echo "Error: src/player directory not found"
           exit 1
         fi
         
-        # Check for main module file
         if [ -f "src/player/tt_um_audio_player.v" ]; then
           echo "Found main module in src/player directory"
         else
@@ -45,11 +43,16 @@ jobs:
     - name: Simulation
       if: success()
       run: |
-        # Create build directory
         mkdir -p build
         
-        # Compile Verilog files
-        iverilog -o build/sim src/player/*.v
+        # Use SystemVerilog mode (-g2012) and add other necessary flags
+        iverilog -g2012 -Wall -o build/sim src/player/*.v
+        
+        # If compilation succeeds, try to run the simulation
+        if [ $? -eq 0 ]; then
+          echo "Compilation successful, running simulation..."
+          ./build/sim
+        fi
         
     - name: Upload Configuration
       if: always()
